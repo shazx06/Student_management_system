@@ -17,7 +17,8 @@ press 7. search student info by id or name...
 press 8. detail toppers subject wise...
 press 9  details of sections...
 press 10. for printing the name and id of student sectin wise...
-press 11. to delete information of a student 
+press 11. to delete information of a student ....
+press 12. to fill the deleted columns field with new student info
             
     ''')
   x=int()
@@ -49,6 +50,8 @@ press 11. to delete information of a student
       sec_stud()
   elif x==11:
       delete()
+  elif x==12:
+      specific()
   else:
       print("\nplease input a valid option from a list\n")
   ch=input("\nif you want to continue press yes/y else press any key:  ")

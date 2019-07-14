@@ -314,8 +314,20 @@ def delete():
  
 
 
-
-
-
+def specific():
+    print("inputting data to a specific location : ")
+    id=int(input("enter the id you want to input the data:  "))
+    Name=str(input('enter the name:  ')).upper()
+    branch=input("enter the branch: ").upper()
+    sectin=input("enter the section: ").upper()
+    mth=float(input("enter the maths marks:   "))
+    py=float(input("enter the python marks:  "))
+    sql=float(input('enter the sql marks:  '))
+    total_marks=(mth+py+sql)
+    
+    
+    cursor.execute(f'insert into students(ID,name,branch,section,math_marks,py_marks,sql_marks,total_marks) \
+    values({id},"{Name}","{branch}","{sectin}",{mth},{py},{sql},{total_marks})')
+    mydb.commit()
 
 
