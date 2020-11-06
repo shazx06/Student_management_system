@@ -1,13 +1,13 @@
 
-import mysql.connector as cnt
+import sqlite3 
 from colorama import Fore as f, Style as s
 
 
-mydb=cnt.connect(host="localhost",user="root",passwd="Shazx06@",database="test_db")
-cursor=mydb.cursor()
+conn=sqlite3.connect('student.db')
+cursor=conn.cursor()
 cursor.execute('''
 create table  if not exists students(
-ID int primary key auto_increment ,
+ID INTEGER primary key AUTOINCREMENT ,
 name varchar(100),
 branch varchar(100),
 section varchar(100),
@@ -37,7 +37,7 @@ def student_input():
     
     cursor.execute(f'insert into students(name,branch,section,math_marks,py_marks,sql_marks,total_marks) \
     values("{Name}","{branch}","{sectin}",{mth},{py},{sql},{total_marks})')
-    mydb.commit()
+    conn.commit()
 
 
 
@@ -88,30 +88,30 @@ def student_manipulation():
      if x==1:
              sec=input('input the new section: ').upper()
              cursor.execute(f'update students set section="{sec}" where id={id}')
-             mydb.commit()
+             conn.commit()
              
 
      x1=int(input('press 1 if want to change maths marks else press 0  '))
      if x1==1:
              mth=float(input('input the new maths_marks: '))
              cursor.execute(f'update students set math_marks={mth} where id={id}')
-             mydb.commit() 
+             conn.commit() 
              
 
      x2=int(input('press 1 if want to change py_marks else press 0  '))
      if x2==1:
              mth=float(input('input the new py_marks: '))
              cursor.execute(f'update students set py_marks={mth} where id={id}')
-             mydb.commit()
+             conn.commit()
              
 
      x3=int(input('press 1 if want to change sql marks else press 0:  '))
      if x3==1:
              mth=float(input('input the new sql_marks: '))
              cursor.execute(f'update students set sql_marks={mth} where id={id}')
-             mydb.commit()
+             conn.commit()
      cursor.execute(f"update students set total_marks=math_marks+sql_marks + py_marks where id={id}")
-     mydb.commit()
+     conn.commit()
      print("\nDATA before manipulation\n")
      print(f'{s.BRIGHT}{f.YELLOW}')
      print(" ID           NAME          branch       section    MATH         PYTHON        SQL       TOTAL_MARKS")
@@ -289,7 +289,7 @@ def delete():
         Name=input("enter the name of student to be deleted: ").upper()
         try:
           cursor.execute(f"delete from students where name='{Name}'")
-          mydb.commit()
+          conn.commit()
           print(f"\n{f.BLUE}Information have been successfully deleted from database: {s.RESET_ALL}")
         except :
             print(f"{f.RED}oops something went wrong{s.RESET_ALL}")      
@@ -302,7 +302,7 @@ def delete():
         id=int(input("enter the id of student to be deleted:   "))
         try:
             cursor.execute(f"delete from students where id={id}")
-            mydb.commit()
+            conn.commit()
             print(f"\n{f.BLUE}Information have been successfully deleted from database: {s.RESET_ALL}")
         except :
           print(f"{f.RED}oops something went wrong{s.RESET_ALL}")        
@@ -328,6 +328,6 @@ def specific():
     
     cursor.execute(f'insert into students(ID,name,branch,section,math_marks,py_marks,sql_marks,total_marks) \
     values({id},"{Name}","{branch}","{sectin}",{mth},{py},{sql},{total_marks})')
-    mydb.commit()
+    conn.commit()
 
 
